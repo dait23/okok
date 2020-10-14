@@ -1,0 +1,26 @@
+sudo: required
+language: node_js
+node_js:
+  - "stable"
+services:
+  - docker
+
+before_install:
+  - docker build -t slenkoid/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run slenkoid/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t slenkoid/multi-client ./client
+  - docker build -t slenkoid/multi-nginx ./nginx
+
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Push to docker hub
+  - docker push slenkoid/multi-client
+  - docker push slenkoid/multi-nginx
+
+
+
+
