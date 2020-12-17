@@ -12,14 +12,15 @@ script:
   - docker run slenkoid/react-test npm test -- --coverage
 
 after_success:
-  #- docker build -t slenkoid/multi-client ./client
-  #- docker build -t slenkoid/multi-nginx ./nginx
   - docker build -t slenkoid/phoenix-landing ./react-docker
+  - docker build -t slenkoid/multi-client ./client
+  - docker build -t slenkoid/multi-nginx ./nginx
 
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Push to docker hub
-  #- docker push slenkoid/multi-client
-  #- docker push slenkoid/multi-nginx
   - docker push slenkoid/phoenix-landing
+  - docker push slenkoid/multi-client
+  - docker push slenkoid/multi-nginx
+  
 
