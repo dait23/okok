@@ -6,10 +6,10 @@ services:
   - docker
 
 before_install:
-  #- docker build -t slenkoid/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t slenkoid/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  #- docker run slenkoid/react-test npm test -- --coverage
+  - docker run slenkoid/react-test npm test -- --coverage
 
 after_success:
   #- docker build -t slenkoid/multi-client ./client
