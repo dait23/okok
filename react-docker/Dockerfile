@@ -1,7 +1,7 @@
 FROM node:alpine as builder
 
 # install and cache app dependencies
-COPY package.json package-lock.json ./
+COPY ./package.json ./
 RUN npm install && mkdir /phoenix-landing && mv ./node_modules ./phoenix-landing
 
 WORKDIR /phoenix-landing
